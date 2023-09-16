@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket = "global-assets-registry"
+    bucket = "guru-playground-global-assets-registry"
     prefix = "terraform/state"
   }
 }

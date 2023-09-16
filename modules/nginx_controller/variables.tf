@@ -18,11 +18,6 @@ variable "nginx_controller_k8s_cluster_ca_cert" {
   description = "The CA certificate of the k8s cluster"
 }
 
-variable "nginx_controller_k8s_project" {
-  type        = string
-  description = "The Project where the k8s cluster is installed"
-}
-
 variable "nginx_controller_repository" {
   type        = string
   description = "The helm repository"

@@ -18,7 +18,7 @@ variable "k8s_tier" {
 }
 
 variable "k8s_cluster_node_pool_version" {
-  type        = String
+  type        = string
   description = "Cluster And Node Pool Version"
 }
 

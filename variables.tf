@@ -2,7 +2,7 @@ variable "environment_project" {
   type        = map(string)
   description = "The Association of Projects and Environment names"
   default = {
-    "devops" = "devops-353009",
+    "devops" = "guru-playground",
   }
 }
 
