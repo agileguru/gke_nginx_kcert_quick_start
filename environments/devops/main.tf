@@ -16,11 +16,10 @@ module "devop_k8s" {
   k8s_cluster_name                         = "devops-k8s-cluster"
   k8s_master_ipv4_cidr_block               = "172.16.0.0/28"
   k8s_service_account_name                 = "devops-k8s-cluster-ser-ac"
-  k8s_cluster_logging_service              = "logging.googleapis.com/kubernetes"
-  k8s_cluster_monitoring_service           = "monitoring.googleapis.com/kubernetes"
   k8s_tier_node_count                      = 1
   k8s_spot_tier_node_count                 = 0
   k8s_enable_managed_prometheus_monitoring = false
+  k8s_cluster_node_pool_version            = "1.27.4-gke.900"
 }
 
 module "devops_nginx_controller" {
@@ -29,6 +28,8 @@ module "devops_nginx_controller" {
   nginx_controller_helm_host           = module.devop_k8s.k8s_project_cluster_endpoint
   nginx_controller_helm_token          = module.devop_k8s.k8s_project_cluster_token
   nginx_controller_k8s_cluster_ca_cert = module.devop_k8s.k8s_project_cluster_cluster_ca_cert
+  nginx_controller_project             = var.project
+  nginx_controller_region              = var.region
 }
 
 module "devops_kcert_controller" {

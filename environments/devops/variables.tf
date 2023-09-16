@@ -1,5 +1,5 @@
 variable "project" {
-  default     = "devops-353009"
+  default     = "guru-playground"
   description = "The project ID"
 }
 

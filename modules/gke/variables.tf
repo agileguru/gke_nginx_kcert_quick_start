@@ -100,18 +100,6 @@ variable "k8s_cluster_location" {
   description = "The Region or zone of the GKE instance"
 }
 
-variable "k8s_cluster_logging_service" {
-  type        = string
-  default     = "none"
-  description = "The Logging service for the GKE instance"
-}
-
-variable "k8s_cluster_monitoring_service" {
-  type        = string
-  default     = "none"
-  description = "The Logging service for the GKE instance"
-}
-
 variable "k8s_additional_node_zones" {
   type        = list(string)
   default     = [""]

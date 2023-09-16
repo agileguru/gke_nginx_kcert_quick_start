@@ -1,4 +1,4 @@
 
-output "lb_ip_address" {
-  value = module.demo.lb_ip_address
+output "devops_k8s_nginx_controller_lb_ip" {
+  value = module.devops.k8s_nginx_controller_lb_ip
 }

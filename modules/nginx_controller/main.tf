@@ -6,6 +6,12 @@ provider "helm" {
   }
 }
 
+resource "google_compute_address" "reserved_static_ip" {
+  name    = "${var.nginx_controller_k8s_project}-k8s-nginx-lb-reserved-ip"
+  project = var.nginx_controller_project
+  region  = var.nginx_controller_region
+}
+
 resource "helm_release" "nginx_controller" {
 
   name       = "${var.nginx_controller_k8s_project}-k8s-nginx"
@@ -16,5 +22,10 @@ resource "helm_release" "nginx_controller" {
   set {
     name  = "controller.admissionWebhooks.enabled"
     value = "false"
+  }
+
+  set {
+    name  = "controller.service.loadBalancerIP"
+    value = google_compute_address.reserved_static_ip.address
   }
 }

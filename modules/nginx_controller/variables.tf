@@ -1,3 +1,14 @@
+variable "nginx_controller_project" {
+  type        = string
+  description = "The project"
+}
+
+variable "nginx_controller_region" {
+  type        = string
+  description = "The region"
+}
+
+
 variable "nginx_controller_helm_host" {
   type        = string
   description = "The endpoint of the k8s cluster"

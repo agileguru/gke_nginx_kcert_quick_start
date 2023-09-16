@@ -46,7 +46,7 @@ resource "google_compute_subnetwork" "subnet" {
 
 # Routing for VPC for pulling images and updates
 resource "google_compute_router" "router" {
-  name    = "router"
+  name    = "k8s-router"
   project = var.k8s_project
   region  = var.k8s_region
   network = google_compute_network.vpc.id
@@ -54,7 +54,7 @@ resource "google_compute_router" "router" {
 
 # NAT for pulling images and updates
 resource "google_compute_router_nat" "nat" {
-  name    = "k8s-nat"
+  name    = "k8s-nat-router"
   project = var.k8s_project
   region  = var.k8s_region
   router  = google_compute_router.router.name
@@ -72,7 +72,7 @@ resource "google_compute_router_nat" "nat" {
 
 # NAT for pulling images and updates
 resource "google_compute_address" "nat" {
-  name         = "k8s-nat"
+  name         = "k8s-nat-address"
   address_type = var.k8s_address_type
   network_tier = var.k8s_network_tier
   project      = var.k8s_project
@@ -82,7 +82,7 @@ resource "google_compute_address" "nat" {
 
 # Firewall for external access
 resource "google_compute_firewall" "firewall" {
-  name    = "firewall"
+  name    = "k8s-firewall"
   network = google_compute_network.vpc.name
   project = var.k8s_project
   allow {
@@ -96,9 +96,10 @@ resource "google_compute_firewall" "firewall" {
 data "google_client_config" "client_config" {}
 
 data "google_container_cluster" "my_cluster" {
-  name     = var.k8s_cluster_name
-  location = var.k8s_cluster_location
-  project  = var.k8s_project
+  name       = var.k8s_cluster_name
+  location   = var.k8s_cluster_location
+  project    = var.k8s_project
+  depends_on = [google_container_node_pool.general]
 }
 
 provider "kubernetes" {
@@ -120,11 +121,9 @@ resource "google_container_cluster" "cluster" {
   initial_node_count       = 1
   network                  = google_compute_network.vpc.self_link
   subnetwork               = google_compute_subnetwork.subnet.self_link
-  logging_service          = var.k8s_cluster_logging_service
-  monitoring_service       = var.k8s_cluster_monitoring_service
   networking_mode          = "VPC_NATIVE"
   node_locations           = var.k8s_additional_node_zones
-  min_master_version       = "1.26.7-gke.500"
+  min_master_version       = var.k8s_cluster_node_pool_version
   monitoring_config {
     managed_prometheus {
       enabled = var.k8s_enable_managed_prometheus_monitoring
