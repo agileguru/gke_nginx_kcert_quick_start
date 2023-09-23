@@ -26,6 +26,22 @@ variable "environment_k8s_version" {
   type        = map(string)
   description = "The Association of k8s version and Environments"
   default = {
-    "devops" = "1.26.7-gke.500"
+    "devops" = "1.27.4-gke.900"
+  }
+}
+
+variable "environment_letsencrypt_email" {
+  type        = map(string)
+  description = "The Association of Letsencrypt Email and Environments"
+  default = {
+    "devops" = "webtechguru@gmail.com"
+  }
+}
+
+variable "environment_cluster_name" {
+  type        = map(string)
+  description = "The Association of Cluster Name and Environments"
+  default = {
+    "devops" = "devops-k8s-cluster"
   }
 }

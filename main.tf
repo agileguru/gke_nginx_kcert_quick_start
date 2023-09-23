@@ -19,12 +19,11 @@ provider "google-beta" {
 }
 
 module "devops" {
-  source  = "./environments/devops"
-  project = var.environment_project["devops"]
-  region  = var.environment_region["devops"]
-  zone    = var.environment_zone["devops"]
-  # providers = {
-  #   google      = google.global_google
-  #   google-beta = google.global_google_beta
-  # }
+  source            = "./environments/devops"
+  project           = var.environment_project["devops"]
+  region            = var.environment_region["devops"]
+  zone              = var.environment_zone["devops"]
+  cluster_name      = var.environment_cluster_name["devops"]
+  cluster_version   = var.environment_k8s_version["devops"]
+  letsencrypt_email = var.environment_letsencrypt_email["devops"]
 }
