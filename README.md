@@ -8,14 +8,21 @@ A repository for a production grade GKE cluster with nginx and kcert LetsEncrypt
 1. Use are using nignx ingress controller
 1. You are using kcert SSL manager for your public Site
 
+## Tools / CLI to download and put in path
+
+1. Terraform CLI [https://developer.hashicorp.com/terraform/downloads](https://developer.hashicorp.com/terraform/downloads)
+2. Terraform-docs CLI ( optional ) [https://github.com/terraform-docs/terraform-docs/releases](https://github.com/terraform-docs/terraform-docs/releases)
+
 ## Terraform IAC for creating the resources
 
 1. Clone this repository and change to the checkout directory
-1. Change the project / region / zone name in variables.tf 
-1. Change other variables if needed.
-
+1. Change the values in sample.tfvars or create a new tfvars with correct values
+1. Change other variables if needed to customize the cluster details.
+1. Uncomment the backend.tf keys and provide the correct values if using GCS for storing the state. Delete backend.tf to use the local file system for state management.
+1. Execute the following .
     * > terraform init
-    * > terraform apply
+    * > terraform plan -var-file=sample.tfvars ( change sample.tfvars to your specific config file )
+    * > terraform apply -var-file=sample.tfvars ( change sample.tfvars to your specific config file )
 
 > Outputs:
 >

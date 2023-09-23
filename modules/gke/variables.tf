@@ -8,11 +8,13 @@ variable "k8s_vpc_name" {
 }
 
 variable "k8s_region" {
+  type        = string
   default     = "us-central1"
   description = "The Region of the GKE instance"
 }
 
 variable "k8s_tier" {
+  type        = string
   default     = "e2-f1-micro"
   description = "The instance tiers are based on the machine"
 }
@@ -23,15 +25,18 @@ variable "k8s_cluster_node_pool_version" {
 }
 
 variable "k8s_tier_node_count" {
+  type        = string
   default     = 2
   description = "The nodes in this pool"
 }
 
 variable "k8s_spot_tier" {
+  type        = string
   default     = "e2-f1-micro"
   description = "The instance tiers are based on the machine"
 }
 variable "k8s_spot_tier_node_count" {
+  type        = number
   default     = 2
   description = "The nodes in this pool"
 }

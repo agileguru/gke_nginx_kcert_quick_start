@@ -7,5 +7,5 @@ output "k8s_project_cluster_token" {
 }
 
 output "k8s_project_cluster_cluster_ca_cert" {
-  value = google_container_cluster.cluster.master_auth.0.cluster_ca_certificate
+  value = google_container_cluster.cluster.master_auth[0].cluster_ca_certificate
 }
