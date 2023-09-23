@@ -1,21 +1,43 @@
+terraform {
+  required_version = ">= 1.4.6"
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = ">= 4.82.0"
+    }
+    google-beta = {
+      source  = "hashicorp/google-beta"
+      version = ">= 4.82.0"
+    }
+    helm = {
+      source  = "hashicorp/helm"
+      version = ">= 2.11.0"
+    }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = ">= 2.23.0"
+    }
+  }
+}
+
 module "devop_k8s" {
   source                                   = "../../modules/gke"
   k8s_project                              = var.project
   k8s_region                               = var.region
   k8s_cluster_location                     = var.zone
   k8s_additional_node_zones                = []
-  k8s_vpc_name                             = "devops-k8s-vpc"
-  k8s_tier                                 = "e2-standard-2"
-  k8s_spot_tier                            = "e2-standard-2"
-  k8s_subnet_name                          = "devops-k8s-subnet"
-  k8s_subnet_cidr                          = "10.0.0.0/18"
-  k8s_pod_cidr                             = "10.48.0.0/14"
-  k8s_pod_cidr_name                        = "devops-k8s-pod-cidr"
-  k8s_svc_cidr                             = "10.52.0.0/20"
-  k8s_svc_cidr_name                        = "devops-k8s-svc-cidr"
+  k8s_vpc_name                             = var.vpc_name
+  k8s_tier                                 = var.tier
+  k8s_spot_tier                            = var.spot_tier
+  k8s_subnet_name                          = var.subnet_name
+  k8s_subnet_cidr                          = var.subnet_cidr
+  k8s_pod_cidr                             = var.pod_cidr
+  k8s_pod_cidr_name                        = var.pod_cidr_name
+  k8s_svc_cidr                             = var.svc_cidr
+  k8s_svc_cidr_name                        = var.svc_cidr_name
   k8s_cluster_name                         = var.cluster_name
-  k8s_master_ipv4_cidr_block               = "172.16.0.0/28"
-  k8s_service_account_name                 = "devops-k8s-cluster-ser-ac"
+  k8s_master_ipv4_cidr_block               = var.master_ipv4_cidr_block
+  k8s_service_account_name                 = "${var.cluster_name}-ser-ac"
   k8s_tier_node_count                      = 1
   k8s_spot_tier_node_count                 = 0
   k8s_enable_managed_prometheus_monitoring = false
